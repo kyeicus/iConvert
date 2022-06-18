@@ -17,27 +17,22 @@ struct ContentView: View {
     
     let conversions = ["Distance", "Mass", "Temperature", "Time"]
     let unitType = [
-        [UnitLength.feet, UnitLength.kilometers, UnitLength.meters, UnitLength.miles, UnitLength.yards],
+        [UnitLength.feet, UnitLength.kilometers, UnitLength.meters, UnitLength.miles, UnitLength.yards, UnitLength.inches, UnitLength.centimeters],
         [UnitMass.grams, UnitMass.kilograms, UnitMass.ounces, UnitMass.pounds],
         [UnitTemperature.fahrenheit, UnitTemperature.celsius, UnitTemperature.kelvin],
         [UnitDuration.hours, UnitDuration.minutes, UnitDuration.seconds],
         
     ]
-    
-    
-    
     let formatter : MeasurementFormatter
-    
     var result: String {
         let inputMeasurement = Measurement(value: input, unit: inputUnit)
         let outputMeasurement = inputMeasurement.converted(to: outputUnit)
         return formatter.string(from: outputMeasurement)
-        
     }
     
     var body: some View {
         NavigationView {
-            Form{
+            Form {
                 Section{
                     TextField("Amount", value: $input, format: .number)
                         .keyboardType(.decimalPad)
@@ -82,14 +77,13 @@ struct ContentView: View {
                 let units = unitType[newSelection]
                 inputUnit = units[0]
                 outputUnit = units[1]
-                
             }
         }
     }
     init() {
         formatter = MeasurementFormatter()
         formatter.unitOptions = .providedUnit
-        formatter.unitStyle = .long
+        formatter.unitStyle = .medium
         
     }
 }
